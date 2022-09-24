@@ -1,0 +1,38 @@
+.theme-default {
+	--el-component-size:35px;
+}
+.theme-default .el-tag{
+	--el-tag-border-radius: 1px;
+}
+
+.theme-default .el-button {
+	height:var(--el-component-size);
+	border-radius: var(--el-border-radius-small);
+}
+.theme-default .el-input__wrapper {
+	border-radius: var(--el-border-radius-small);
+}
+
+.theme-default .el-button--small {
+	height:var(--el-button-size);
+}
+
+.theme-default .el-table{
+	--el-table-header-text-color:var(--el-text-color-primary)
+}
+
+.theme-default .logo-box{
+	padding: 0;
+	background-color:var(--el-color-info-light-9);
+}
+
+.theme-default .el-menu-item i{
+	color:var(--el-text-color-primary);
+}
+.theme-default .el-descriptions__label.el-descriptions__cell.is-bordered-label{
+	color:var(--el-text-color-primary);
+}
+
+.theme-default .el-form-item__label{
+	color:var(--el-text-color-primary);
+}

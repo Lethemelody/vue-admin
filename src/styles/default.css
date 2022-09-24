@@ -1,0 +1,95 @@
+@charset 'utf-8'
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0 !important;
+	padding: 0
+}
+
+/* 暗色主题 */
+html.dark {
+	--w-e-textarea-bg-color: var(--el-bg-color);
+	--w-e-textarea-color: var(--el-text-color-primary);
+	--w-e-textarea-border-color: var(--el-border-color);
+	--w-e-textarea-slight-border-color: var(--el-border-color-lighter);
+	--w-e-textarea-slight-color: var(--el-color-info-light-3);
+	--w-e-textarea-slight-bg-color: var(--el-fill-color-lighter);
+	--w-e-textarea-selected-border-color: var(--el-border-color-lighter);
+	--w-e-textarea-handler-bg-color: var(--el-fill-color-dark);
+	--w-e-toolbar-color: var(--el-text-color-primary);
+	--w-e-toolbar-bg-color: var(--el-bg-color);
+	--w-e-toolbar-active-color: var(--el-text-color-primary);
+	--w-e-toolbar-active-bg-color: var(--el-bg-color-overlay);
+	--w-e-toolbar-disabled-color: var(--el-color-info-dark-2);
+	--w-e-toolbar-border-color: var(--el-border-color);
+	--w-e-modal-button-bg-color: var(--el-bg-color);
+	--w-e-modal-button-border-color: var(--el-border-color);
+}
+
+.flex {
+	display: flex;
+}
+
+.flex .flex-item {
+	flex: 1;
+}
+
+.info-line {
+	display: flex;
+	margin-bottom: 10px;
+	line-height: 30px;
+	flex-wrap: wrap;
+}
+
+.info-line .info-line-item {
+	display: flex;
+	width: 50%;
+	margin-bottom: 10px;
+}
+.info-line .info-textarea-item {
+	width: 100%;
+}
+
+.info-line .info-line-item .label {
+	min-width: 60px;
+	text-align: right;
+	font-size: 14px;
+	width: 100px;
+	background: var(--el-bg-color-page);
+}
+
+.info-line .info-line-item .value {
+	flex: 1;
+	font-size: 14px;
+	margin-left: 5px;
+}
+
+.page {
+	padding: 0 10px;
+	overflow: auto;
+}
+
+/*里面的代码可以根据自己需求去进行更改*/
+/* 设置滚动条的样式 */
+.page::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* 滚动槽 */
+.page::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px var(--el-border-color-dark);
+	border-radius: 8px;
+}
+
+/* 滚动条滑块 */
+.page::-webkit-scrollbar-thumb {
+	border-radius: 8px;
+	background: var(--el-border-color-darker);
+	-webkit-box-shadow: inset 0 0 6px var(--el-border-color-dark);
+}
+
+.page::-webkit-scrollbar-thumb:window-inactive {
+	background: var(--el-border-color-darker);
+}
