@@ -14,7 +14,7 @@
   3. 登录、注册、主页等标志性界面能够适配不同的主题，使用主题控制最终的效果，以便复合项目需求。
 
 # 四、博客地址
-    https://blog.csdn.net/m0_37631110/category_11681569.html
+    [CSDN博客](https://blog.csdn.net/m0_37631110/category_11681569.html)
 
 # 五、视频地址
-    https://www.bilibili.com/video/BV19N4y1571s/?spm_id_from=333.999.0.0&vd_source=44a51023b6bb7cebd199314f5f9142e5
+    [视频地址](https://www.bilibili.com/video/BV19N4y1571s/?spm_id_from=333.999.0.0&vd_source=44a51023b6bb7cebd199314f5f9142e5)
