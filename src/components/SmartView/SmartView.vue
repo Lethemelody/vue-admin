@@ -66,9 +66,19 @@
 							</template>
 						</el-descriptions-item>
 						<el-descriptions-item :label="item.label+'：'" label-class-name="info-label" v-else-if="item.type == '8'">
-							<template v-for="(dictitem, dictindex) in item.dicts" :key="dictitem.value">
-								<template
-									v-if="entityData[item.prop] == dictitem.value">{{dictitem.label}}</template>
+							<template v-if="item.multiple">
+								<template v-if="entityData[item.prop]" v-for="(cellitem,cellindex) in entityData[item.prop]">
+									<template v-for="(dictitem, dictindex) in item.dicts" :key="dictitem.value">
+										<template
+											v-if="cellitem == dictitem.value">{{dictitem.label}}</template>
+									</template>
+								</template>
+							</template>
+							<template v-else>
+								<template v-for="(dictitem, dictindex) in item.dicts" :key="dictitem.value">
+									<template
+										v-if="entityData[item.prop] == dictitem.value">{{dictitem.label}}</template>
+								</template>
 							</template>
 						</el-descriptions-item>
 						<el-descriptions-item :label="item.label+'：'" label-class-name="info-label" v-else-if="item.type == '9'">

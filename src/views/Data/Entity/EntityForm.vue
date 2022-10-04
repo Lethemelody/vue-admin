@@ -1,4 +1,4 @@
-<template>
+c<template>
 	<div class="btns flex">
 		<div class="flex-item">{{className}}</div>
 		<div>
