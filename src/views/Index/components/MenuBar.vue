@@ -88,7 +88,7 @@
 				}
 				return;
 			}
-			menuData.splice(0, menuData.length - 1);
+			menuData.splice(0, menuData.length);
 			menuData.push(...res.data.data);
 
 			//将菜单数据动态添加到路由中进行注册
