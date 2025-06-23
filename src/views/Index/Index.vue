@@ -285,11 +285,22 @@ const getCompomemtByPath = ( path ) => {
 
 .theme-default .layout-container :deep(.el-tabs__header) {
   height: v-bind(headerHeight);
-  margin-right: 270px;
+  margin-right: 280px;
   margin-bottom: 0;
   margin-left: 10px;
   line-height: v-bind(headerHeight);
+  
 }
+
+.theme-default .layout-container :deep(.el-tabs__header) {
+  height: v-bind(headerHeight);
+  margin-right: 280px;
+  margin-bottom: 0;
+  margin-left: 10px;
+  line-height: v-bind(headerHeight);
+  
+}
+
 
 .theme-default .layout-container :deep(.custom-tabs-label .el-icon) {
   position: relative;
@@ -319,11 +330,28 @@ const getCompomemtByPath = ( path ) => {
 		display: none;
 	} */
 
+.theme-default .layout-container :deep(.el-tabs__nav-prev){
+	margin-top: 12px;
+	font-size: 20px;
+	margin-left: -5px;
+	z-index: 9999;
+	margin-right: 20px;
+}
+
+.theme-default .layout-container :deep(.el-tabs__nav-next){
+	margin-top: 12px;
+	font-size: 20px;
+	margin-right: -5px;
+	z-index: 9999;
+}
+
 .theme-default .layout-container :deep(.el-tabs__content),
 .theme-default .layout-container :deep(.el-tab-pane),
 .theme-default .layout-container :deep(.page) {
   height: calc(100vh - v-bind(headerHeight));
 }
+
+
 
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class="content">
+	<div class="content" ref="containerRef">
 		<el-card class="search-box">
 			<div class="table-btn-box flex">
 				<div class="flex-item">
@@ -546,14 +546,14 @@ const showSearchFilterBox = () => {
 		searchFilterBox.value = false;
 	}
 	nextTick( () => {
-		resizeTableHeight();
+		if (containerRef.value) resizeTableHeight() // 添加存在性检查
 	} );
 }
 //隐藏高级筛选框
 const hideSearchFilterBox = () => {
 	searchFilterBox.value = false;
 	nextTick( () => {
-		resizeTableHeight();
+		if (containerRef.value) resizeTableHeight() // 添加存在性检查
 	} );
 }
 //高级筛选
@@ -607,50 +607,50 @@ const loadDataByFiled = ( node, resolve ) => {
 	}
 }
 
-//表格的高度
-const tableHeight = ref( null );
-const resizeTableHeight = () => {
-	let pageRef = document.getElementById( "pane-" + router.currentRoute.value.path );
-	let pageHeight = pageRef.clientHeight;
+// //表格的高度
+// const tableHeight = ref( null );
+// const resizeTableHeight = () => {
+// 	let pageRef = document.getElementById( "pane-" + router.currentRoute.value.path );
+// 	let pageHeight = pageRef.clientHeight;
 
-	let tableBtnBoxEle = pageRef.getElementsByClassName( "table-btn-box" );
-	let tabBtnHeight = 0;
-	if ( tableBtnBoxEle && tableBtnBoxEle.length > 0 ) {
-		tabBtnHeight = tableBtnBoxEle[0].clientHeight;
-	}
+// 	let tableBtnBoxEle = pageRef.getElementsByClassName( "table-btn-box" );
+// 	let tabBtnHeight = 0;
+// 	if ( tableBtnBoxEle && tableBtnBoxEle.length > 0 ) {
+// 		tabBtnHeight = tableBtnBoxEle[0].clientHeight;
+// 	}
 
-	let searchTagEle = pageRef.getElementsByClassName( "search-tag" )
-	let searchTagHeight = 0;
-	if ( searchTagEle && searchTagEle.length > 0 ) {
-		searchTagHeight = searchTagEle[0].clientHeight;
-	}
+// 	let searchTagEle = pageRef.getElementsByClassName( "search-tag" )
+// 	let searchTagHeight = 0;
+// 	if ( searchTagEle && searchTagEle.length > 0 ) {
+// 		searchTagHeight = searchTagEle[0].clientHeight;
+// 	}
 
-	let toolsBarEle = pageRef.getElementsByClassName( "tools-bar" );
-	let toolsHeight = 0;
-	if ( toolsBarEle && toolsBarEle.length > 0 ) {
-		toolsHeight = toolsBarEle[0].clientHeight;
-	}
+// 	let toolsBarEle = pageRef.getElementsByClassName( "tools-bar" );
+// 	let toolsHeight = 0;
+// 	if ( toolsBarEle && toolsBarEle.length > 0 ) {
+// 		toolsHeight = toolsBarEle[0].clientHeight;
+// 	}
 
-	let tablePageEle = pageRef.getElementsByClassName( "table-page" );
-	let tablePageHeight = 0;
-	if ( tablePageEle && tablePageEle.length > 0 ) {
-		tablePageHeight = tablePageEle[0].clientHeight;
-	}
+// 	let tablePageEle = pageRef.getElementsByClassName( "table-page" );
+// 	let tablePageHeight = 0;
+// 	if ( tablePageEle && tablePageEle.length > 0 ) {
+// 		tablePageHeight = tablePageEle[0].clientHeight;
+// 	}
 
-	let filterHeight = 0;
-	if ( searchFilterBox.value ) {
-		let searchFilterBoxEle = pageRef.getElementsByClassName( "search-filter-box" );
-		if ( searchFilterBoxEle && searchFilterBoxEle.length > 0 ) {
-			filterHeight = searchFilterBoxEle[0].clientHeight + 4;
-		}
-	}
+// 	let filterHeight = 0;
+// 	if ( searchFilterBox.value ) {
+// 		let searchFilterBoxEle = pageRef.getElementsByClassName( "search-filter-box" );
+// 		if ( searchFilterBoxEle && searchFilterBoxEle.length > 0 ) {
+// 			filterHeight = searchFilterBoxEle[0].clientHeight + 4;
+// 		}
+// 	}
 
-	tableHeight.value = ( pageHeight - tabBtnHeight - searchTagHeight - toolsHeight - tablePageHeight -
-		filterHeight - 4 - 40 ) +
-		"px";
+// 	tableHeight.value = ( pageHeight - tabBtnHeight - searchTagHeight - toolsHeight - tablePageHeight -
+// 		filterHeight - 4 - 40 ) +
+// 		"px";
 
-	table.value.doLayout();
-}
+// 	table.value.doLayout();
+// }
 
 //实体配置
 const entityFileds = reactive( [] );
@@ -921,10 +921,73 @@ const loadData = () => {
 	} );
 }
 
+const containerRef = ref(null)
+const resizeObserver = ref(null)
+let rafId = null
+
+// 优化后的高度计算函数
+const resizeTableHeight = () => {
+  if (!containerRef.value) return
+
+  // 分步获取子元素并添加空值保护
+  const getElementHeight = (selector) => {
+    const el = containerRef.value.querySelector(selector)
+    return el ? el.clientHeight : 0
+  }
+
+  try {
+    const pageHeight = containerRef.value.clientHeight
+    const tabBtnHeight = getElementHeight('.table-btn-box')
+    const searchTagHeight = getElementHeight('.search-tag')
+    const toolsHeight = getElementHeight('.tools-bar')
+    const tablePageHeight = getElementHeight('.table-page')
+    const filterHeight = searchFilterBox.value 
+      ? getElementHeight('.search-filter-box') + 4 
+      : 0
+
+    // 计算最终高度（调整间距计算）
+    tableHeight.value = `${pageHeight 
+      - tabBtnHeight 
+      - searchTagHeight 
+      - toolsHeight 
+      - tablePageHeight 
+      - filterHeight 
+      - 44  // 合并所有固定间距
+    }px`
+
+    // 安全调用表格布局
+    table.value?.doLayout?.()
+  } catch (e) {
+    console.warn('表格高度计算失败:', e)
+  }
+}
+
+
+onUnmounted(() => {
+  // 彻底清理资源
+  resizeObserver.value?.disconnect()
+  if (rafId) cancelAnimationFrame(rafId)
+  containerRef.value = null
+})
+
 onMounted( () => {
-	resizeTableHeight();
-	window.onresize = () => {
-		resizeTableHeight();
+	// resizeTableHeight();
+	// window.onresize = () => {
+	// 	resizeTableHeight();
+	// }
+	// 使用 ResizeObserver 替代 window.resize
+	resizeObserver.value = new ResizeObserver(() => {
+	  // 取消未执行的帧
+	  if (rafId) cancelAnimationFrame(rafId)
+	  rafId = requestAnimationFrame(resizeTableHeight)
+	})
+	
+	if (containerRef.value) {
+	  resizeObserver.value.observe(containerRef.value)
+	  nextTick(() => {
+	    resizeTableHeight()
+	    table.value?.doLayout?.()
+	  })
 	}
 
 	//加载实体的配置

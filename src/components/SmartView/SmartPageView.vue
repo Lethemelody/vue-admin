@@ -81,22 +81,23 @@
 
 	//自动计算表单的高度
 	const resizeViewHeight = () => {
-		let pageRef = document.getElementById("pane-" + router.currentRoute.value.path);
-		let pageHeight = pageRef.clientHeight;
+		// let pageRef = document.getElementById("pane-" + router.currentRoute.value.path);
+		// let pageHeight = pageRef.clientHeight;
 
-		let elCardHeaderEle = pageRef.getElementsByClassName("el-card__header");
-		let titleHeight = 0;
-		if (elCardHeaderEle && elCardHeaderEle.length > 0) {
-			titleHeight = elCardHeaderEle[0].clientHeight;
-		}
+		// let elCardHeaderEle = pageRef.getElementsByClassName("el-card__header");
+		// let titleHeight = 0;
+		// if (elCardHeaderEle && elCardHeaderEle.length > 0) {
+		// 	titleHeight = elCardHeaderEle[0].clientHeight;
+		// }
 
-		let viewBtnsEle = pageRef.getElementsByClassName("view-btns");
-		let btnHeight = 0;
-		if (viewBtnsEle && viewBtnsEle.length > 0) {
-			btnHeight = viewBtnsEle[0].clientHeight;
-		}
+		// let viewBtnsEle = pageRef.getElementsByClassName("view-btns");
+		// let btnHeight = 0;
+		// if (viewBtnsEle && viewBtnsEle.length > 0) {
+		// 	btnHeight = viewBtnsEle[0].clientHeight;
+		// }
 
-		viewHeight.value = (pageHeight - titleHeight - btnHeight - 10 - 20 - 10 - 10) + 'px';
+		// viewHeight.value = (pageHeight - titleHeight - btnHeight - 10 - 20 - 10 - 10) + 'px';
+		viewHeight.value = 75 + 'vh';
 	}
 
 	onMounted(() => {
